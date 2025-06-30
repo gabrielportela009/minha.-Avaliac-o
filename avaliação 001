@@ -1,0 +1,70 @@
+public class Aluno {
+
+    private String nome;
+    private double[] notas;
+
+    public Aluno(String nome, double[] notas) {
+        this.nome = nome;
+        this.notas = notas;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public double calcularMediaBimestral(int bimestre) {
+        int inicio = (bimestre - 1) * 2;
+        int fim = inicio + 2;
+        double soma = 0;
+        for (int i = inicio; i < fim; i++) {
+            soma += notas[i];
+        }
+        return soma / 2;
+    }
+
+    public double calcularMediaSemestral(int semestre) {
+        int inicio = (semestre - 1) * 4;
+        double soma = 0;
+        for (int i = inicio; i < inicio + 4; i++) {
+            soma += notas[i];
+        }
+        return soma / 4;
+    }
+
+    public double calcularMediaAnual() {
+        double soma = 0;
+        for (double nota : notas) {
+            soma += nota;
+        }
+        return soma / 8;
+    }
+
+    public String getSituacaoFinal() {
+        double mediaAnual = calcularMediaAnual();
+        if (mediaAnual >= 7.0) {
+            return "Aprovado";
+        } else if (mediaAnual >= 5.0) {
+            return "Recuperação";
+        } else {
+            return "Reprovado";
+        }
+    }
+
+    public static void main(String[] args) {
+        double[] notas = {7.0, 8.0, 6.5, 7.5, 5.0, 6.0, 8.5, 9.0};
+        Aluno aluno = new Aluno("João", notas);
+
+        System.out.println("Nome do Aluno: " + aluno.getNome());
+
+        for (int i = 1; i <= 2; i++) {
+            System.out.println("Média do " + i + "º Bimestre: " + aluno.calcularMediaBimestral(i));
+        }
+
+        for (int i = 1; i <= 2; i++) {
+            System.out.println("Média do " + i + "º Semestre: " + aluno.calcularMediaSemestral(i));
+        }
+
+        System.out.println("Média Anual: " + aluno.calcularMediaAnual());
+        System.out.println("Situação Final: " + aluno.getSituacaoFinal());
+    }
+}
